@@ -47,7 +47,7 @@ export const useTheme = () => {
 
 // Define and Export CustomCursor Component
 const CustomCursor = () => {
-  return <div>Custom Cursor Placeholder</div>; // You can customize this
+  return <div></div>; // You can customize this
 };
 
 export default CustomCursor;
