@@ -42,15 +42,15 @@ const Footer = () => {
         </div>
         <div className="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-between">
           <div className="flex space-x-6 md:order-2">
-            <a href="#" className="text-gray-400 hover:text-gray-300">
+            <a href="https://athletearc.vercel.app/" className="text-gray-400 hover:text-gray-300">
               <span className="sr-only">Facebook</span>
               <FaFacebook className="h-6 w-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-300">
+            <a href="https://athletearc.vercel.app/" className="text-gray-400 hover:text-gray-300">
               <span className="sr-only">Twitter</span>
               <FaTwitter className="h-6 w-6" />
             </a>
-            <a href="#" className="text-gray-400 hover:text-gray-300">
+            <a href="https://athletearc.vercel.app/" className="text-gray-400 hover:text-gray-300">
               <span className="sr-only">Instagram</span>
               <FaInstagram className="h-6 w-6" />
             </a>
