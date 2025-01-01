@@ -12,7 +12,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 //import myAccountPage from './pages/MyAccountPage';
 //import DarkModeToggle from './components/DarkModeToggle';
 import CustomCursor from './components/CustomCursor';
-import { UserProvider } from './contexts/UserContext';
+import { UserProvider } from './contexts/userContext';
 
 function App() {
   return (

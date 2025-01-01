@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaSearch, FaShoppingCart, FaHeart, FaBars, FaTimes, FaUser } from 'react-icons/fa';
 import DarkModeToggle from './DarkModeToggle';
+import LoginRegisterModal from './LoginRegisterModal'; // Import the modal
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const openLoginRegisterModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeLoginRegisterModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -16,7 +26,6 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0">
-              {/* <img className="h-8 w-auto" src="/logo.svg" alt="Logo" /> */}
               <span className="font-bold text-xl">R.K.SPORTS</span>
             </Link>
           </div>
@@ -41,21 +50,24 @@ const Navbar = () => {
               <Link to="/cart" className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
                 <FaShoppingCart />
               </Link>
-              {/* Add My Account Icon */}
-              <Link to="/my-account" className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium">
+              {/* My Account Icon */}
+              <button
+                onClick={openLoginRegisterModal}
+                className="hover:bg-gray-700 px-3 py-2 rounded-md text-sm font-medium"
+              >
                 <FaUser />
-              </Link>
+              </button>
               <DarkModeToggle />
             </div>
           </div>
           <div className="md:hidden">
             <button onClick={toggleMenu} className="text-white">
-              {isOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
+              {isMenuOpen ? <FaTimes className="w-6 h-6" /> : <FaBars className="w-6 h-6" />}
             </button>
           </div>
         </div>
       </div>
-      {isOpen && (
+      {isMenuOpen && (
         <div className="md:hidden mt-4 space-y-2">
           <Link to="/category/running" className="hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium">
             Running
@@ -77,15 +89,20 @@ const Navbar = () => {
             Cart
           </Link>
           {/* Add My Account Icon in Mobile Menu */}
-          <Link to="/my-account" className="hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium">
+          <button
+            onClick={openLoginRegisterModal}
+            className="hover:bg-gray-700 block px-3 py-2 rounded-md text-base font-medium"
+          >
             My Account
-          </Link>
+          </button>
           <div className="mt-4 flex justify-between items-center">
             <span className="text-sm">Dark Mode</span>
             <DarkModeToggle />
           </div>
         </div>
       )}
+      {/* Login/Register Modal */}
+      <LoginRegisterModal isOpen={isModalOpen} onClose={closeLoginRegisterModal} />
     </nav>
   );
 };
