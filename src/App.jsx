@@ -30,7 +30,7 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/contact" element={<ContactPage />} />
-              <Route path="/my-account" element={<myAccountPage />} />
+            
             </Routes>
           </main>
           <Footer />
