@@ -14,6 +14,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import CustomCursor from './components/CustomCursor';
 import { UserProvider } from './contexts/userContext';
 
+
 function App() {
   return (
     <UserProvider>
@@ -30,7 +31,6 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/contact" element={<ContactPage />} />
-            
             </Routes>
           </main>
           <Footer />

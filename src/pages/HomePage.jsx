@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import Carousel from '../components/Carousel';
 
@@ -9,14 +9,8 @@ const HomePage = () => {
     { id: '2', name: 'Yoga Mat', price: 3900, image: '/imgs/pexels-tima-miroshnichenko-5184709.jpg' },
     { id: '3', name: 'Dumbbell Set', price: 870, image: '/imgs/will-porada-uy5ZEqUOscs-unsplash.jpg' },
     { id: '4', name: 'Dumbbell Set', price: 890, image: '/imgs/will-porada-uy5ZEqUOscs-unsplash.jpg' },
-    
-    // Add more products as needed
-  ];
-
-  const testimonials = [
-    { id: 1, content: 'Athletex has the best sports gear I\'ve ever used!', author: 'John D.' },
-    { id: 2, content: 'Their customer service is top-notch. Highly recommended!', author: 'Sarah M.' },
-    { id: 3, content: 'I love the quality of their products. Will definitely buy again!', author: 'Mike R.' },
+    { id: '5', name: 'Tennis Racket', price: 1200, image: '/imgs/tennisracket.png' }, // Added
+    { id: '6', name: 'Basketball', price: 500, image: '/imgs/basketball.png' }, // Added
   ];
 
   return (
@@ -49,84 +43,73 @@ const HomePage = () => {
         </div>
       </div>
 
-      {/* Featured Categories 
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Featured Categories</h2>
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-          {['Running', 'Gym', 'Yoga'].map((category) => (
-            <Link key={category} to={`/category/${category.toLowerCase()}`} className="group">
-              <div className="w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
-                <img
-                  src={`/image/${category.toLowerCase()}-category.jpg`}
-                  alt={category}
-                  className="w-full h-full object-center object-cover group-hover:opacity-75"
-                />
+      {/* Featured Categories */}
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-8">Featured Categories</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Running Category */}
+          <Link to="/category/running" className="group">
+            <div className="w-full h-64 sm:h-80 bg-gray-200 rounded-lg overflow-hidden relative">
+              <img
+                src="/imgs/michiel-annaert-0T1Vof2jZiU-unsplash.jpg"
+                alt="Running"
+                className="w-full h-full object-cover group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                <h3 className="text-2xl font-bold text-white">Running</h3>
               </div>
-              <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">{category}</h3>
-            </Link>
-          ))}
+            </div>
+          </Link>
+
+          {/* Gym Category */}
+          <Link to="/category/gym" className="group">
+            <div className="w-full h-64 sm:h-80 bg-gray-200 rounded-lg overflow-hidden relative">
+              <img
+                src="/imgs/pexels-yogendras31-4747325.jpg"
+                alt="Gym"
+                className="w-full h-full object-cover group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                <h3 className="text-2xl font-bold text-white">Gym</h3>
+              </div>
+            </div>
+          </Link>
+
+          {/* Yoga Category */}
+          <Link to="/category/yoga" className="group">
+            <div className="w-full h-64 sm:h-80 bg-gray-200 rounded-lg overflow-hidden relative">
+              <img
+                src="/imgs/mali-desha-kMeC8sjlWLg-unsplash.jpg"
+                alt="Yoga"
+                className="w-full h-full object-cover group-hover:opacity-75 transition-opacity"
+              />
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40">
+                <h3 className="text-2xl font-bold text-white">Yoga</h3>
+              </div>
+            </div>
+          </Link>
         </div>
       </div>
-*/}
-
-
- {/* Featured Categories */}
- <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
- <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Featured Categories</h2>
- <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-   {/* Running Category */}
-   <Link to="/category/running" className="group">
-     <div className="w-full h-80 bg-gray-200 rounded-lg overflow-hidden">
-       <img
-         src="/imgs/michiel-annaert-0T1Vof2jZiU-unsplash.jpg" // Image for Running category
-         alt="Running"
-         className="w-full h-full object-center object-cover group-hover:opacity-75"
-       />
-     </div>
-     <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">Running</h3>
-   </Link>
-
-   {/* Gym Category */}
-   <Link to="/category/gym" className="group">
-     <div className="w-full h-80 bg-gray-200 rounded-lg overflow-hidden">
-       <img
-         src="/imgs/pexels-yogendras31-4747325.jpg" // Image for Gym category
-         alt="Gym"
-         className="w-full h-full object-center object-cover group-hover:opacity-75"
-       />
-     </div>
-     <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">Gym</h3>
-   </Link>
-
-   {/* Yoga Category */}
-   <Link to="/category/yoga" className="group">
-     <div className="w-full h-80 bg-gray-200 rounded-lg overflow-hidden">
-       <img
-         src="/imgs/mali-desha-kMeC8sjlWLg-unsplash.jpg" // Image for Yoga category
-         alt="Yoga"
-         className="w-full h-full object-center object-cover group-hover:opacity-75"
-       />
-     </div>
-     <h3 className="mt-4 text-lg font-medium text-gray-900 dark:text-white">Yoga</h3>
-   </Link>
- </div>
-</div>
 
       {/* Latest Products */}
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">Latest Products</h2>
-        <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl font-extrabold text-gray-900 mb-8">Latest Products</h2>
+        <div className="grid grid-cols-3 gap-4">
           {featuredProducts.map((product) => (
-            <ProductCard key={product.id} {...product} />
+            <div key={product.id} className="w-full">
+              <ProductCard {...product} />
+            </div>
           ))}
         </div>
       </div>
 
       {/* Testimonials */}
-      <div className="bg-gray-100 dark:bg-gray-800 py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+      <div className="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-8">What Our Customers Say</h2>
-          <Carousel items={testimonials} />
+          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">Gym Equipment</h2>
+          <div className="relative">
+            <Carousel />
+          </div>
         </div>
       </div>
     </div>
@@ -134,4 +117,3 @@ const HomePage = () => {
 };
 
 export default HomePage;
-

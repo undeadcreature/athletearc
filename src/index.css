@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 body {
-  cursor: auto;
+  cursor: auto ;
 }
 
 a, button, input, select, textarea {
