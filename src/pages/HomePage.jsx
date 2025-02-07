@@ -14,7 +14,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div className="bg-white">
+    <div className="bg-white dark:bg-gray-900">
       {/* Hero Section */}
       <div className="relative bg-gray-900">
         <div className="absolute inset-0">
@@ -23,7 +23,7 @@ const HomePage = () => {
             src="\imgs\sky-2393871_1920.jpg"
             alt="Hero banner"
           />
-          <div className="absolute inset-0 bg-gray-900 opacity-75"></div>
+          <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
         </div>
         <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -45,7 +45,7 @@ const HomePage = () => {
 
       {/* Featured Categories */}
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-8">Featured Categories</h2>
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">Featured Categories</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Running Category */}
           <Link to="/category/running" className="group">
@@ -93,20 +93,18 @@ const HomePage = () => {
 
       {/* Latest Products */}
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-extrabold text-gray-900 mb-8">Latest Products</h2>
-        <div className="grid grid-cols-3 gap-4">
+        <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8">Latest Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {featuredProducts.map((product) => (
-            <div key={product.id} className="w-full">
-              <ProductCard {...product} />
-            </div>
+            <ProductCard key={product.id} {...product} />
           ))}
         </div>
       </div>
 
       {/* Testimonials */}
-      <div className="bg-gray-100 py-16 px-4 sm:px-6 lg:px-8">
+      <div className="bg-gray-100 dark:bg-gray-800 py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-8">Gym Equipment</h2>
+          <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white text-center mb-8">Gym Equipment</h2>
           <div className="relative">
             <Carousel />
           </div>
