@@ -34,7 +34,7 @@ const HomePage = () => {
           </p>
           <div className="mt-10">
             <Link
-              to="/category/all"
+              to="/shop"
               className="inline-block bg-red-600 py-3 px-8 rounded-md text-base font-medium text-white hover:bg-red-700"
             >
               Shop Now

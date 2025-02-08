@@ -8,6 +8,7 @@ import ProductPage from './pages/ProductPage';
 import CartPage from './pages/CartPage';
 import WishlistPage from './pages/WishlistPage';
 import ContactPage from './pages/ContactPage';
+import ShopPage from "./pages/ShopPage";
 import { ThemeProvider } from './contexts/ThemeContext';
 //import myAccountPage from './pages/MyAccountPage';
 //import DarkModeToggle from './components/DarkModeToggle';
@@ -26,6 +27,7 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/shop" element={<ShopPage />} />
               <Route path="/category/:categoryName" element={<CategoryPage />} />
               <Route path="/product/:productId" element={<ProductPage />} />
               <Route path="/cart" element={<CartPage />} />
