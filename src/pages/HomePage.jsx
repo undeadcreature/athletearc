@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {   } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import Carousel from '../components/Carousel';
@@ -12,6 +12,9 @@ const HomePage = () => {
     { id: '5', name: 'Tennis Racket', price: 1200, image: '/imgs/tennisracket.png' }, // Added
     { id: '6', name: 'Basketball', price: 500, image: '/imgs/basketball.png' }, // Added
   ];
+
+ 
+
 
   return (
     <div className="bg-white dark:bg-gray-900">

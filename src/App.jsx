@@ -10,9 +10,9 @@ import WishlistPage from './pages/WishlistPage';
 import ContactPage from './pages/ContactPage';
 import ShopPage from "./pages/ShopPage";
 import { ThemeProvider } from './contexts/ThemeContext';
-//import myAccountPage from './pages/MyAccountPage';
+import MyAccountPage from './pages/MyAccountPage';
 //import DarkModeToggle from './components/DarkModeToggle';
-import CustomCursor from './components/CustomCursor';
+ 
 import { UserProvider } from './contexts/userContext';
 
 
@@ -22,7 +22,7 @@ function App() {
     <ThemeProvider>
       <Router>
         <div className="flex flex-col min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-200">
-          <CustomCursor />
+           
           <Navbar />
           <main className="flex-grow">
             <Routes>
@@ -33,6 +33,7 @@ function App() {
               <Route path="/cart" element={<CartPage />} />
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="/my-account" element={<MyAccountPage />} />
             </Routes>
           </main>
           <Footer />

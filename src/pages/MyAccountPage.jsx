@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useUser } from 'src/contexts/UserContext.jsx';
+import { useUser } from '../contexts/userContext.jsx';
 
 const MyAccountPage = () => {
   const { user, setUser } = useUser();
@@ -69,7 +69,7 @@ const MyAccountPage = () => {
                       onChange={(e) => setPassword(e.target.value)}
                       className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                     />
-                  </dd>
+                  </dd>      
                 </div>
                 <div className="px-4 py-6 sm:px-0">
                   <button
