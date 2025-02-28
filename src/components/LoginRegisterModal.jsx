@@ -3,9 +3,14 @@ import { Dialog, Transition } from '@headlessui/react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import { Link } from 'react-router-dom';
 
 const LoginRegisterModal = ({ isOpen, onClose }) => {
   const [isLogin, setIsLogin] = useState(true);
+
+  const handleContinueShopping = () => {
+    onClose();
+  };
 
   return (
     <Transition appear show={isOpen} as={React.Fragment}>
@@ -52,6 +57,14 @@ const LoginRegisterModal = ({ isOpen, onClose }) => {
                     {isLogin ? <LoginForm /> : <RegisterForm />}
                   </div>
                 </div>
+                <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
+                 <p>
+                    or{' '}
+                    <Link to="/shop" className="text-red-600 font-medium hover:text-red-500" onClick={handleContinueShopping}>
+                      Continue Shopping<span aria-hidden="true"> &rarr;</span>
+                    </Link>
+                </p>
+                </div>
                 <div className="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse">
                   <button
                     type="button"
@@ -66,7 +79,8 @@ const LoginRegisterModal = ({ isOpen, onClose }) => {
           </div>
         </div>
       </Dialog>
-    </Transition>
+    </Transition>   
+
   );
 }; 
 

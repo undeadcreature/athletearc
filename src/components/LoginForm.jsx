@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from '../contexts/userContext';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
   const [email, setEmail] = useState('');
@@ -25,9 +26,11 @@ const LoginForm = () => {
         email: 'user@example.com',
         profilePicture: '/placeholder-avatar.jpg',
       });
+      
     } else {
       setError('Invalid email or password');
     }
+
   };
 
   return (

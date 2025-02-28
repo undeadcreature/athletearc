@@ -13,8 +13,6 @@ const HomePage = () => {
     { id: '6', name: 'Basketball', price: 500, image: '/imgs/basketball.png' }, // Added
   ];
 
- 
-
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -26,7 +24,7 @@ const HomePage = () => {
             src="\imgs\sky-2393871_1920.jpg"
             alt="Hero banner"
           />
-          <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+          <div className="absolute inset-0 bg-gray-900 opacity-20"></div>
         </div>
         <div className="relative max-w-7xl mx-auto py-24 px-4 sm:py-32 sm:px-6 lg:px-8">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">

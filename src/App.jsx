@@ -11,8 +11,10 @@ import ContactPage from './pages/ContactPage';
 import ShopPage from "./pages/ShopPage";
 import { ThemeProvider } from './contexts/ThemeContext';
 import MyAccountPage from './pages/MyAccountPage';
+import Login from './components/LoginForm';
 //import DarkModeToggle from './components/DarkModeToggle';
- 
+import CheckoutPage from './pages/CheckoutPage';
+import PaymentPage from './pages/PaymentPage';
 import { UserProvider } from './contexts/userContext';
 
 
@@ -27,6 +29,8 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<Login />} />
+        
               <Route path="/shop" element={<ShopPage />} />
               <Route path="/category/:categoryName" element={<CategoryPage />} />
               <Route path="/product/:productId" element={<ProductPage />} />
@@ -34,6 +38,8 @@ function App() {
               <Route path="/wishlist" element={<WishlistPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/my-account" element={<MyAccountPage />} />
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/payment" element={<PaymentPage />} />
             </Routes>
           </main>
           <Footer />
