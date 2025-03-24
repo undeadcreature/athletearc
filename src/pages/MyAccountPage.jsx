@@ -1,117 +1,140 @@
-import React, { useState } from 'react';
-import { useUser } from '../contexts/userContext.jsx';
+import React, { useEffect, useState } from "react";
+import { useUser } from "../contexts/userContext.jsx";
 
 const MyAccountPage = () => {
-  const { user, setUser } = useUser();
-  const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user?.name || '');
-  const [email, setEmail] = useState(user?.email || '');
-  const [password, setPassword] = useState('');
+    const { user, setUser } = useUser();
+    const [loading, setLoading] = useState(true);
+    const [activeSection, setActiveSection] = useState("profile");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (user) {
-      setUser({
-        ...user,
-        name,
-        email,
-      });
-      setIsEditing(false);
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    console.error("No token found in localStorage");
+                    setLoading(false);
+                    return;
+                }
+
+                const response = await fetch("http://localhost:8080/auth/me", {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token.replace(/"/g, '')}`,
+                        "Content-Type": "application/json",
+                    },
+                });
+
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user data");
+                }
+
+                const data = await response.json();
+                setUser(data);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchUserData();
+    }, [setUser]);
+
+    if (loading) {
+        return <div>Loading...</div>;
     }
-  };
 
-  if (!user) {
-    return <div>Please log in to view your account.</div>;
-  }
+    if (!user) {
+        return <div>Please log in to view your account.</div>;
+    }
 
-  return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div className="px-4 py-6 sm:px-0">
-        <h1 className="text-2xl font-semibold text-gray-900">My Account</h1>
-        <div className="mt-6 border-t border-gray-100">
-          <dl className="divide-y divide-gray-100">
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-              <dt className="text-sm font-medium leading-6 text-gray-900">Profile Picture</dt>
-              <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                <img src={user.profilePicture} alt="Profile" className="h-20 w-20 rounded-full" />
-              </dd>
+    const address = user?.addresses?.length > 0 ? user.addresses[0] : null;
+
+    const renderSection = () => {
+        switch (activeSection) {
+            case "profile":
+                return (
+                    <div>
+                        <h2 className="text-xl font-semibold mb-4">Profile Settings</h2>
+                        <form>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">First Name</label>
+                                <input type="text" defaultValue={user.firstName} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Last Name</label>
+                                <input type="text" defaultValue={user.lastName} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Email</label>
+                                <input type="email" defaultValue={user.email} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Mobile Number</label>
+                                <input type="text" defaultValue={user.mobileNumber} className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">New Password</label>
+                                <input type="password" className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <div className="mb-4">
+                                <label className="block text-sm font-medium">Confirm Password</label>
+                                <input type="password" className="mt-1 block w-full p-2 border border-gray-300 rounded-md" />
+                            </div>
+                            <button type="submit" className="bg-blue-500 text-white p-2 rounded-md">Update Profile</button>
+                        </form>
+                    </div>
+                );
+            case "address":
+                return (
+                    <div>
+                        <h2 className="text-xl font-semibold mb-4">Address</h2>
+                        {address ? (
+                            <p>
+                                {address.additionalInformation && ` ${address.additionalInformation},`}
+                                {address.area && ` ${address.area},`}
+                                {address.city && ` ${address.city},`}
+                                {address.state && ` ${address.state} -`}
+                                {address.pincode !== 0 ? ` ${address.pincode}` : ""}
+                            </p>
+                        ) : (
+                            <p>No address provided.</p>
+                        )}
+                    </div>
+                );
+            case "orders":
+                return (
+                    <div>
+                        <h2 className="text-xl font-semibold mb-4">Order History</h2>
+                        <p>Display order history here.</p>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
+
+    return (
+        <div className="max-w-6xl mx-auto py-6 flex">
+            <div className="w-1/4 bg-gray-100 p-4">
+                <h1 className="text-xl font-semibold mb-4">My Account</h1>
+                <ul>
+                    <li className="mb-2">
+                        <button onClick={() => setActiveSection("profile")} className="text-blue-500 hover:text-blue-700">Profile Settings</button>
+                    </li>
+                    <li className="mb-2">
+                        <button onClick={() => setActiveSection("address")} className="text-blue-500 hover:text-blue-700">Address</button>
+                    </li>
+                    <li className="mb-2">
+                        <button onClick={() => setActiveSection("orders")} className="text-blue-500 hover:text-blue-700">Orders</button>
+                    </li>
+                </ul>
             </div>
-            {isEditing ? (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">Name</dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    <input
-                      type="text"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">Email</dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">New Password</dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    />
-                  </dd>      
-                </div>
-                <div className="px-4 py-6 sm:px-0">
-                  <button
-                    type="submit"
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Save Changes
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsEditing(false)}
-                    className="ml-3 inline-flex justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">Name</dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.name}</dd>
-                </div>
-                <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                  <dt className="text-sm font-medium leading-6 text-gray-900">Email</dt>
-                  <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">{user.email}</dd>
-                </div>
-                <div className="px-4 py-6 sm:px-0">
-                  <button
-                    onClick={() => setIsEditing(true)}
-                    className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                  >
-                    Edit Profile
-                  </button>
-                </div>
-              </>
-            )}
-          </dl>
+            <div className="w-3/4 p-4">
+                {renderSection()}
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default MyAccountPage;

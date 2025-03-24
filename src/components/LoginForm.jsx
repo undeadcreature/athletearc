@@ -3,8 +3,8 @@ import { useUser } from '../contexts/userContext';
 import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('user@example.com');
+  const [password, setPassword] = useState('password');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const { setUser } = useUser();

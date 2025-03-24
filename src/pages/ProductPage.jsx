@@ -21,8 +21,7 @@ const ProductPage = () => {
                         name: 'Running Shoes',
                         price: 129.99,
                         description: 'Comfortable running shoes for all terrains.',
-                        rating: 4.5,
-                        reviews: 120,
+                
                         images: [
                             {
                                 url: '/images/running-shoes.jpg',
