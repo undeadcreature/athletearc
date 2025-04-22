@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaHeart, FaRegHeart } from 'react-icons/fa';
 
 const ProductPage = () => {
     const { productId } = useParams();
@@ -9,6 +9,16 @@ const ProductPage = () => {
     const [error, setError] = useState(null);
     const [quantity, setQuantity] = useState(1);
     const [cartMessage, setCartMessage] = useState('');
+    const [isInWishlist, setIsInWishlist] = useState(false);
+
+    // Check if product is in wishlist when component mounts or product changes
+    useEffect(() => {
+        if (product) {
+            const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const isProductInWishlist = wishlistItems.some(item => item.id === product.id);
+            setIsInWishlist(isProductInWishlist);
+        }
+    }, [product]);
 
     // Simulate fetching product details (replace with actual API call later)
     useEffect(() => {
@@ -21,7 +31,6 @@ const ProductPage = () => {
                         name: 'Running Shoes',
                         price: 129.99,
                         description: 'Comfortable running shoes for all terrains.',
-                
                         images: [
                             {
                                 url: '/images/running-shoes.jpg',
@@ -57,6 +66,28 @@ const ProductPage = () => {
         setTimeout(() => setCartMessage(''), 3000); // Clear message after 3 seconds
     };
 
+    // Toggle product in wishlist
+    const toggleWishlist = () => {
+        const wishlistItems = JSON.parse(localStorage.getItem('wishlist')) || [];
+        
+        if (isInWishlist) {
+            // Remove from wishlist
+            const updatedWishlist = wishlistItems.filter(item => item.id !== product.id);
+            localStorage.setItem('wishlist', JSON.stringify(updatedWishlist));
+        } else {
+            // Add to wishlist
+            const productToAdd = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                image: product.images[0].url
+            };
+            localStorage.setItem('wishlist', JSON.stringify([...wishlistItems, productToAdd]));
+        }
+        
+        setIsInWishlist(!isInWishlist);
+    };
+
     if (loading) return <p className="text-center text-xl">Loading...</p>;
     if (error) return <p className="text-center text-red-600 text-xl">Error: {error}</p>;
     if (!product) return <p className="text-center text-gray-600 text-xl">Product not found.</p>;
@@ -65,7 +96,7 @@ const ProductPage = () => {
         <div className="max-w-7xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
             <div className="lg:grid lg:grid-cols-2 lg:gap-x-8">
                 {/* Product Image */}
-                <div className="lg:max-w-lg lg:self-end">
+                <div className="lg:max-w-lg lg:self-end relative">
                     <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden">
                         <img
                             src={product.images[0].url}
@@ -73,13 +104,38 @@ const ProductPage = () => {
                             className="w-full h-full object-center object-cover"
                         />
                     </div>
+                    {/* Wishlist button */}
+                    <button 
+                        onClick={toggleWishlist}
+                        className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+                    >
+                        {isInWishlist ? (
+                            <FaHeart className="h-6 w-6 text-red-500" />
+                        ) : (
+                            <FaRegHeart className="h-6 w-6 text-gray-400 hover:text-red-500" />
+                        )}
+                    </button>
                 </div>
 
                 {/* Product Details */}
                 <div className="mt-10 px-4 sm:px-0 sm:mt-16 lg:mt-0">
-                    <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
-                        {product.name}
-                    </h1>
+                    <div className="flex justify-between items-start">
+                        <h1 className="text-3xl font-extrabold tracking-tight text-gray-900">
+                            {product.name}
+                        </h1>
+                        <button 
+                            onClick={toggleWishlist}
+                            className="sm:hidden p-2 rounded-full hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+                        >
+                            {isInWishlist ? (
+                                <FaHeart className="h-6 w-6 text-red-500" />
+                            ) : (
+                                <FaRegHeart className="h-6 w-6 text-gray-400 hover:text-red-500" />
+                            )}
+                        </button>
+                    </div>
                     <div className="mt-3">
                         <p className="text-3xl text-gray-900">₹{product.price.toFixed(2)}</p>
                     </div>
